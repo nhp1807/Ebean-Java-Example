@@ -6,12 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.Objects;
 
-@Entity
-@Table(name = "users")
+@MappedSuperclass
 @Getter
 @Setter
-public class User extends Model {
-
+public abstract class BaseUser extends Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,9 +20,9 @@ public class User extends Model {
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    public User() {}
+    public BaseUser() {}
 
-    public User(String name, String email) {
+    public BaseUser(String name, String email) {
         this.name = name;
         this.email = email;
     }
@@ -38,7 +36,7 @@ public class User extends Model {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        BaseUser user = (BaseUser) o;
         return Objects.equals(id, user.id);
     }
 

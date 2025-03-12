@@ -8,22 +8,48 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-//    private static final Database database = DB.getDefault();
+    // private static final Database database = DB.getDefault();
 
     public static void main(String[] args) {
+
+    }
+
+    /**
+     * Tạo dữ liệu mẫu cho User
+     * Admin và Customer kế thừa từ BaseUser
+     * BaseUser là một abstract class
+     * Khi tạo mới --> sẽ tạo ra 2 bảng ứng với Admin và Customer
+     */
+    public static void setupUser(){
+        // Tạo và lưu AdminUser kế thừa từ BaseUser
+        AdminUser admin = new AdminUser("Admin Name", "admin@example.com", 1, "IT");
+        admin.save();
+
+        // Tạo và lưu CustomerUser kế thừa từ BaseUser
+        CustomerUser customer = new CustomerUser("Customer Name", "customer@example.com", "CUS001", "GOLD");
+        customer.save();
+    }
+
+    /**
+     * Tạo dữ liệu mẫu cho Channel
+     * SocialChannel chứa danh sách ChannelPrice
+     * Mỗi Channel có thể có nhiều ChannelPrice
+     * Quan hệ nhiều-nhiều giữa SocialChannel và ChannelPrice
+     */
+    public static void setupChannel() {
         // Tạo danh sách các ChannelPrice
         List<ChannelPrice> prices = createPrices();
-        
+
         // Tạo danh sách các SocialChannel
         List<SocialChannel> channels = createChannels(prices);
-        
+
         // Lưu tất cả vào database
         saveData(prices, channels);
     }
 
     private static List<ChannelPrice> createPrices() {
         List<ChannelPrice> prices = new ArrayList<>();
-        
+
         ChannelPrice price1 = new ChannelPrice();
         price1.setPriceName("Basic Package");
         price1.setPriceValue(100000);

@@ -17,6 +17,8 @@ public class ChannelPrice {
     private String priceName;
     @Column(name = "price_value")
     private int priceValue;
+    @Column(name = "unit")
+    private String unit;
     @ManyToMany(mappedBy = "channelPrices") // Định nghĩa quan hệ ManyToMany từ SocialChannel
     private List<SocialChannel> socialChannels;
 }
