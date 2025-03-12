@@ -2,80 +2,79 @@ package org.example;
 
 import io.ebean.Database;
 import io.ebean.DB;
-
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
-    private static final Database database = DB.getDefault();
+//    private static final Database database = DB.getDefault();
 
     public static void main(String[] args) {
-        // Chạy hàm lập lịch để thêm user tự động
-        startUserScheduler();
-
-        // Tìm user theo ID
-//        List<User> users = findAllUsers();
-//        for (User user : users) {
-//            System.out.println("User: " + user);
-//        }
-
+        // Tạo danh sách các ChannelPrice
+        List<ChannelPrice> prices = createPrices();
+        
+        // Tạo danh sách các SocialChannel
+        List<SocialChannel> channels = createChannels(prices);
+        
+        // Lưu tất cả vào database
+        saveData(prices, channels);
     }
 
-    private static void startUserScheduler() {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private static List<ChannelPrice> createPrices() {
+        List<ChannelPrice> prices = new ArrayList<>();
+        
+        ChannelPrice price1 = new ChannelPrice();
+        price1.setPriceName("Basic Package");
+        price1.setPriceValue(100000);
+        prices.add(price1);
 
-        Runnable insertUsersTask = () -> {
-            try {
-                System.out.println("Đang tạo 5 user mới...");
+        ChannelPrice price2 = new ChannelPrice();
+        price2.setPriceName("Premium Package");
+        price2.setPriceValue(200000);
+        prices.add(price2);
 
-                for (int i = 0; i < 5; i++) {
-                    User user = new User();
-                    user.setName("User_" + ThreadLocalRandom.current().nextInt(1000, 9999));
-                    user.setEmail("user" + ThreadLocalRandom.current().nextInt(1000, 9999) + "@example.com");
+        ChannelPrice price3 = new ChannelPrice();
+        price3.setPriceName("Enterprise Package");
+        price3.setPriceValue(500000);
+        prices.add(price3);
 
-                    database.save(user);
-                }
-
-                System.out.println("Đã tạo xong 5 user!");
-            } catch (Exception e) {
-                System.err.println("Lỗi khi tạo user: " + e.getMessage());
-            }
-        };
-
-        scheduler.scheduleAtFixedRate(insertUsersTask, 0, 10, TimeUnit.SECONDS);
+        return prices;
     }
 
-    private static void updateUser(int id, String newName, String newEmail) {
-        User user = database.find(User.class, id);
-        if (user != null) {
-            user.setName(newName);
-            user.setEmail(newEmail);
-            database.update(user);
-            System.out.println("Đã cập nhật user có ID: " + id);
-        } else {
-            System.out.println("Không tìm thấy user có ID: " + id);
+    private static List<SocialChannel> createChannels(List<ChannelPrice> prices) {
+        List<SocialChannel> channels = new ArrayList<>();
+
+        // Channel 1 với tất cả các gói giá
+        SocialChannel channel1 = new SocialChannel();
+        channel1.setChannelName("Facebook Channel");
+        channel1.setLocation("Vietnam");
+        channel1.setCreatedAt(LocalDateTime.now());
+        channel1.setUpdatedAt(LocalDateTime.now());
+        channel1.setChannelPrices(prices);
+        channels.add(channel1);
+
+        // Channel 2 chỉ với gói basic và premium
+        SocialChannel channel2 = new SocialChannel();
+        channel2.setChannelName("Instagram Channel");
+        channel2.setLocation("Vietnam");
+        channel2.setCreatedAt(LocalDateTime.now());
+        channel2.setUpdatedAt(LocalDateTime.now());
+        channel2.setChannelPrices(Arrays.asList(prices.get(0), prices.get(1)));
+        channels.add(channel2);
+
+        return channels;
+    }
+
+    private static void saveData(List<ChannelPrice> prices, List<SocialChannel> channels) {
+        // Lưu tất cả prices trước
+        for (ChannelPrice price : prices) {
+            DB.save(price);
         }
-    }
 
-    private static void deleteUser(int id) {
-        User user = database.find(User.class, id);
-        if (user != null) {
-            database.delete(user);
-            System.out.println("Đã xóa user có ID: " + id);
-        } else {
-            System.out.println("Không tìm thấy user có ID: " + id);
+        // Sau đó lưu các channel
+        for (SocialChannel channel : channels) {
+            DB.save(channel);
         }
-    }
-
-    private static List<User> findAllUsers() {
-        return database.find(User.class).findList();
-    }
-
-    private static User findUserById(int id) {
-        return database.find(User.class, id);
     }
 }

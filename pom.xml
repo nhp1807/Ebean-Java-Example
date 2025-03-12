@@ -36,9 +36,6 @@
             <artifactId>ebean-platform-all</artifactId>
             <version>15.10.0</version>
         </dependency>
-
-
-
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
