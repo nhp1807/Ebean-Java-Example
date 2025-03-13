@@ -15,7 +15,11 @@ public class Main {
     // private static final Database database = DB.getDefault();
 
     public static void main(String[] args) {
-        setupUser();
+        List<ChannelPrice> prices = createPrices();
+        List<SocialChannel> channels = createChannels(prices);
+        saveData(prices, channels);
+//        setupUser();
+//        saveData(prices, channels);
     }
 
     /**
