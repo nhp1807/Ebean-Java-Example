@@ -1,4 +1,4 @@
-package org.example;
+package org.example.user;
 
 import io.ebean.Model;
 import jakarta.persistence.*;
@@ -6,10 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.Objects;
 
-@MappedSuperclass
+//@MappedSuperclass
 @Getter
 @Setter
-public abstract class BaseUser extends Model {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type",
+        discriminatorType = DiscriminatorType.INTEGER)
+public class BaseUser extends Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

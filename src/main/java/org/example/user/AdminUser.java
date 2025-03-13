@@ -1,13 +1,14 @@
-package org.example;
+package org.example.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "admin_users")
+//@Table(name = "admin_users")
 @Getter
 @Setter
+@Entity
+@DiscriminatorValue("2")
 public class AdminUser extends BaseUser {
     
     @Column(name = "access_level")

@@ -1,7 +1,11 @@
 package org.example;
 
-import io.ebean.Database;
 import io.ebean.DB;
+import org.example.channel.ChannelPrice;
+import org.example.channel.SocialChannel;
+import org.example.user.AdminUser;
+import org.example.user.CustomerUser;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +15,7 @@ public class Main {
     // private static final Database database = DB.getDefault();
 
     public static void main(String[] args) {
-
+        setupUser();
     }
 
     /**

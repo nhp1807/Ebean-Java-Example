@@ -1,4 +1,4 @@
-package org.example;
+package org.example.channel;
 
 import java.time.LocalDateTime;
 import java.util.List;

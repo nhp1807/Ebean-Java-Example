@@ -1,13 +1,14 @@
-package org.example;
+package org.example.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "customer_users")
+//@Table(name = "customer_users")
 @Getter
 @Setter
+@Entity
+@DiscriminatorValue("1")
 public class CustomerUser extends BaseUser {
     
     @Column(name = "customer_number")

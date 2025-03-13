@@ -13,28 +13,28 @@
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean</artifactId>
-            <version>15.10.0</version>
+            <version>14.10.0</version>
         </dependency>
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean-ddl-generator</artifactId>
-            <version>15.10.0</version>
+            <version>14.10.0</version>
         </dependency>
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean-agent</artifactId>
-            <version>15.10.0</version>
+            <version>14.10.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean-mysql</artifactId>
-            <version>15.10.0</version>
+            <version>14.10.0</version>
         </dependency>
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean-platform-all</artifactId>
-            <version>15.10.0</version>
+            <version>14.10.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
